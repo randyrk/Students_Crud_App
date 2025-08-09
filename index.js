@@ -2,6 +2,12 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const studentRoutes = require("./routes/student.route");
+const cors = require('cors');
+
+
+
+//cors
+app.use(cors());
 
 const app = express();
 
