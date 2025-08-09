@@ -26,10 +26,11 @@ app.use("/api/students", studentRoutes);
 
 //connecting to server
 const uri = process.env.MONGO_URI;
+const PORT = process.env.PORT || 3000;
 mongoose
   .connect(uri)
   .then(() => {
     console.log("Connected to MongoDb atlas successfully!");
-    app.listen(3000, () => console.log("server started running..."));
+    app.listen(PORT, () => console.log("server started running..."));
   })
   .catch((err) => console.log("connection failed due to", err));
