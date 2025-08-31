@@ -1,6 +1,9 @@
 const express = require("express");
+const verifyToken = require("../middleware/auth");
 const router = express.Router();
+
 const {
+  getLoggedInUser,
   getStudents,
   getStudentById,
   putStudent,
@@ -9,11 +12,11 @@ const {
 } = require("../controllers/student.controller");
 
 
-
-router.get("/", getStudents);
-router.get("/:id", getStudentById);
-router.post("/", postStudent);
-router.put("/:id", putStudent);
-router.delete("/:id", deleteStudent);
+router.post("/login",verifyToken, getLoggedInUser);
+router.get("/",verifyToken, getStudents);
+router.get("/:id",verifyToken, getStudentById);
+router.post("/",verifyToken, postStudent);
+router.put("/:id",verifyToken, putStudent);
+router.delete("/:id",verifyToken, deleteStudent);
 
 module.exports = router;

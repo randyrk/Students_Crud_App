@@ -9,6 +9,7 @@ const studentSchema = mongoose.Schema(
     email: {
       type: String,
       required: [true, "Please enter your email"],
+      unique: true
     },
     age: {
       type: Number,
@@ -25,6 +26,28 @@ const studentSchema = mongoose.Schema(
   }
 );
 
-const Student = mongoose.model("Student", studentSchema);
+const userSchema = mongoose.Schema(
+  {
+    firebaseUid: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    name: {
+      type: String,
+      required: [true, "Please enter your name"],
+    },
+    email: {
+      type: String,
+      required: [true, "Please enter your email"],
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-module.exports = Student;
+const Student = mongoose.model("Student", studentSchema);
+const User = mongoose.model("User", userSchema);
+
+module.exports = { Student, User };

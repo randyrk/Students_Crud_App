@@ -1,33 +1,33 @@
-require('dotenv').config();
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require('cors');
+require('dotenv').config();
+
 const app = express();
 
 //cors
 app.use(cors());
 
-const mongoose = require("mongoose");
+//student routes
 const studentRoutes = require("./routes/student.route");
 
+// <--------------middleware configuration----------->
 
-
-
-//middleware configuration
-
-//json format          ---------------> middleware configuration
+//json format        
 app.use(express.json());
 
 //form format
 app.use(express.urlencoded({ extended: false }));
 
 
-//studentRoutes
+//studentRoutes api point
 app.use("/api/students", studentRoutes);
 
 
 //connecting to server
 const uri = process.env.MONGO_URI;
 const PORT = process.env.PORT || 3000;
+
 mongoose
   .connect(uri)
   .then(() => {

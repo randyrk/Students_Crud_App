@@ -1,4 +1,27 @@
-const Student = require("../models/student.model");
+const { Student, User } = require("../models/student.model");
+
+
+//get loggedIn user data --->(READ)
+const getLoggedInUser = async (req, res) => {
+   try {
+    const { name, email } = req.body;
+    const uid = req.user.user_id;  //Firebase UID
+      
+
+    let user = await User.findOne({ firebaseUid: uid });
+    if (!user) {
+      user = await User.create({
+        firebaseUid: uid,
+        name,
+        email,
+      });
+    }
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 //get students list --->(READ)
 const getStudents = async (req, res) => {
@@ -66,6 +89,7 @@ const deleteStudent = async (req, res) => {
 };
 
 module.exports = {
+  getLoggedInUser,
   getStudents,
   getStudentById,
   putStudent,
