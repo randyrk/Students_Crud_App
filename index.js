@@ -24,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/students", studentRoutes);
 
 
+
 //connecting to server
 const uri = process.env.MONGO_URI;
 const PORT = process.env.PORT || 3000;
